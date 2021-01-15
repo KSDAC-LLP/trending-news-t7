@@ -8,12 +8,19 @@ export class NewsController {
   async findNews(@Query('tag') tag: string): Promise<INewsItem[]> {
     const res = await needle(
       'get',
-      `https://api.currentsapi.services/v1/search?keywords=${tag}&apiKey=w6d7BYcr6Zo21xVnD-EdilkhLr5TSeevsYAS51zImPXcSjX-`,
+      `https://api.currentsapi.services/v1/search?&apiKey=w6d7BYcr6Zo21xVnD-EdilkhLr5TSeevsYAS51zImPXcSjX-`,
+      {
+        query: {
+          keywords: tag
+        }
+      }
     );
     const news: INewsItem[] = res.body.news as INewsItem[];
-    news.forEach((item) => {
-      console.log(`${item.title}:  ${item.author}`);
-    });
+    //news.forEach((item) => {
+    //console.log(`${item.title}:  ${item.author}`);
+    console.log(news[0].description)
+
+    //});
     return news;
   }
 }
